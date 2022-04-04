@@ -8,7 +8,12 @@ export default class {
     this.onNavigate = onNavigate
     this.store = store
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
-    if (buttonNewBill) buttonNewBill.addEventListener('click', this.handleClickNewBill)
+
+    //syntaxe miss {}
+    if (buttonNewBill) {
+       buttonNewBill.addEventListener('click', this.handleClickNewBill)
+    }   
+    //
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`)
     if (iconEye) iconEye.forEach(icon => {
       icon.addEventListener('click', () => this.handleClickIconEye(icon))
@@ -39,6 +44,7 @@ export default class {
         const bills = snapshot
         //MODIF
         .sort((a,b) => new Date(a.date) > new Date(b.date) ? -1 : new Date(a.date) < new Date(b.date) ? 1 : 0)
+        //
           .map(doc => {
             try {
               return {
@@ -58,7 +64,7 @@ export default class {
             }
           })
           //.filter(bills => bills.email === userEmail)
-          //console.log('length', bills.length)
+          console.log('length', bills.length)
         return bills
       })
     }
