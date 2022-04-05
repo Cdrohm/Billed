@@ -3,17 +3,23 @@
  */
 
 import {screen, waitFor} from "@testing-library/dom"
+
+//import Bills
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
+
 //import ROUTES
 import { ROUTES } from "../constants/routes.js";
 import { ROUTES_PATH} from "../constants/routes.js";
+
+//keep class / librairies Jest
+import {toHaveClass} from "@testing-library/jest-dom"
+import userEvent from "@testing-library/user-event"
+
+//import MOCK
+
 import {localStorageMock} from "../__mocks__/localStorage.js";
 
-//add test
-
-//keep class
-import {toHaveClass} from "@testing-library/jest-dom";
 
 import router from "../app/Router.js";
 
