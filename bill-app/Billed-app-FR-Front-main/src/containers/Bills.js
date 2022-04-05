@@ -35,7 +35,7 @@ export default class {
   getBills = () => {
     if (this.store) {
       //console log to store
-      console.log('STORE', this.store);
+      //console.log('STORE', this.store);
 
       return this.store
       .bills()

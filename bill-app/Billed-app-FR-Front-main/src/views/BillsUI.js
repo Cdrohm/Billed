@@ -21,7 +21,7 @@ const row = (bill) => {
 
 const rows = (data) => {
   //console log data map
-  console.log(data.map(e => e.date));
+  //console.log(data.map(e => e.date));
 
   return (data && data.length) ? data
 
@@ -86,5 +86,3 @@ export default ({ data: bills, loading, error }) => {
     </div>`
   )
 }
-
-123
