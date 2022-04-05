@@ -1,3 +1,4 @@
+//export Mock
 export const localStorageMock = (function() {
   let store = {};
   return {

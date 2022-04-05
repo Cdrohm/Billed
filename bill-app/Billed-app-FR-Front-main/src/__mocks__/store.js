@@ -1,4 +1,5 @@
 const mockedBills = {
+  //MOCK
   list() {
     return Promise.resolve([{
       "id": "47qAXb6fIm2zOKkLzMro",
