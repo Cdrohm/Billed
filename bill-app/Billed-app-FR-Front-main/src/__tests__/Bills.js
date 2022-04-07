@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-
+//@jest-environment => DOM simulation
 import {screen, waitFor} from "@testing-library/dom"
 
 //import Bills
@@ -12,7 +12,7 @@ import { bills } from "../fixtures/bills.js"
 import { ROUTES } from "../constants/routes.js";
 import { ROUTES_PATH} from "../constants/routes.js";
 
-//keep class / librairies Jest
+// librairies Jest
 import {toHaveClass} from "@testing-library/jest-dom"
 import userEvent from "@testing-library/user-event"
 

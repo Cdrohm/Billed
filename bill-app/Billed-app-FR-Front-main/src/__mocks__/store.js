@@ -63,9 +63,13 @@ const mockedBills = {
       }])
 
   },
+
+  //MOCK put?
   create(bill) {
     return Promise.resolve({fileUrl: 'https://localhost:3456/images/test.jpg', key: '1234'})
   },
+
+  //MOCK post?
   update(bill) {
     return Promise.resolve({
       "id": "47qAXb6fIm2zOKkLzMro",

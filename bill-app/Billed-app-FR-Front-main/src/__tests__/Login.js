@@ -12,6 +12,7 @@ import { fireEvent, screen } from "@testing-library/dom";
   document.body.innerHTML = ROUTES({ pathname });
 };
 
+//employee login test
 describe("Given that I am a user on login page", () => {
   describe("When I do not fill fields and I click on employee button Login In", () => {
     test("Then It should renders Login page", () => {
@@ -113,6 +114,7 @@ describe("Given that I am a user on login page", () => {
       );
     });
 
+    //billet
     test("It should renders Bills page", () => {
       expect(screen.getAllByText("Mes notes de frais")).toBeTruthy();
     });
