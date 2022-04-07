@@ -160,6 +160,7 @@ describe('Given I am connected as an Admin', () => {
   })
 })
 
+//test accept new bill
 describe('Given I am connected as Admin, and I am on Dashboard page, and I clicked on a pending bill', () => {
   describe('When I click on accept button', () => {
     test('I should be sent on Dashboard with big billed icon instead of form', () => {
