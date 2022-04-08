@@ -19,9 +19,11 @@ import userEvent from "@testing-library/user-event"
 //import MOCK
 
 import {localStorageMock} from "../__mocks__/localStorage.js";
+import mockedStore from "../__mocks__/store"
 
 
 import router from "../app/Router.js";
+import Bills from "../containers/Bills.js";
 
 //declare onNavigate
 const onNavigate = (pathname) => { document.body.innerHTML = ROUTES ({pathname})}
@@ -54,5 +56,46 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
     })
+  })
+})
+
+//Employe user test
+//eye icon click
+describe('Unit tests from Billes', () => {
+  describe ('eyeIcon button', () => {
+    it ('first eyebtn should render first mockedBills img', () =>{
+      document.body.innerHTML = BillsUI ({data: bills})
+      const eyeIcon = screen.getAllByTestId('icon-eye') [0]
+      //keep url
+      const fileUrl = "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a"
+
+      //expect
+      expect(handleClickIconEyeMethod).toHaveBeenCalledTimes(eyeIcons.lenght)
+    })
+  })
+
+//new bill btn + icon win/mail
+describe('Testing newBill button', () => {
+  it('buttonNewBill should open newBill on click', () =>{
+    const billsContainer = new Bills({document, onNavigate, localStorage: window.localStorage})
+    const handleClickNewBillMethod = jest.fn(billsContainer.handleClickNewBill)
+    const buttonNewBill = screen.getAllByTestId('btn-new-bill')
+
+    handleClickNewBillMethod(buttonNewBill)
+    userEvent.click(buttonNewBill)
+
+    //expect
+    expect(handleClickNewBillMethod).toHaveBeenCalled()
+    expect(screen.getAllByText('Envoyer une note de frais')).toBeTruthy()
+  })
+  
+  it('should change icon window + icon mail className -> navigate to NewBill', () => {
+    window.onNavigate(ROUTES_PATH.NewBill)
+    const iconWindow = screen.getAllByTestId('icon-window')
+    const iconMail = screen.getAllByTestId('icon-mail')
+
+    //expect
+    expect(iconWindow).not.toHaveClass('active-icon')
+    expect(iconMail).toHaveClass('active-icon')
   })
 })
