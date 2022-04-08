@@ -70,7 +70,22 @@ describe('Unit tests from Billes', () => {
       const fileUrl = "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a"
 
       //expect
-      expect(handleClickIconEyeMethod).toHaveBeenCalledTimes(eyeIcons.lenght)
+      expect(eyeIcon.dataset.billUrl).toEqual(fileUrl)
+    })
+
+    it('all eyeBtns should open modal on click', () =>{
+      const billsContainer = new Bills({document, onNavigate, localStorage: window.localStorage})
+      const handleClickIconEyeMethod = jest.fn(billsContainer.handleClickIconEye)
+      const eyeIcons = screen.getAllByTestId('icon-eye')
+
+      $.fn.modal = jest.fn
+        for (let eyeIcon of eyeIcons) {
+          handleClickIconEyeMethod(eyeIcon)
+          userEvent.click(eyeIcon)
+        }
+
+      //expect
+      expect(handleClickIconEyeMethod).toHaveBeenCalledTimes(eyeIcons.length)  
     })
   })
 
@@ -99,3 +114,4 @@ describe('Testing newBill button', () => {
     expect(iconMail).toHaveClass('active-icon')
   })
 })
+
