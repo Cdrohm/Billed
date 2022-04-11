@@ -86,83 +86,81 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
-
-    //MODIF bills bug
-    if (this.counterBill === undefined) this.counter = 0
-    if ($('dashboard-right-container-div').has('#big-billed-icon').length == 0) {
-      this.bill.id !=e.delegateTarget.id.replace ('open-bill', '') ?
-      this.counterBill = 0 : this.counterBill = 1
-
+    //MODIF Bills dashboard bug
+    if (this.counterBill === undefined) this.counterBill = 0
+    if ($('.dashboard-right-container div').has('#big-billed-icon').length == 0) {
+        this.bill.id != e.delegateTarget.id.replace('open-bill', '') ?
+            this.counterBill = 0 : this.counterBill = 1
     } else {
-      this.counterBill = 0
+        this.counterBill = 0
     }
 
-    //keep bill
+    //bill
     this.bill = bill
 
     if (this.counterBill % 2 === 0) {
-      bills.forEach(b => {
-        $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
-      })
-      $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
-      $('.dashboard-right-container div').html(DashboardFormUI(bill))
-      $('.vertical-navbar').css({ height: '150vh' })
-      //this.counter ++
+        bills.forEach(b => {
+            $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
+        })
+        $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
+        $('.dashboard-right-container div').html(DashboardFormUI(bill))
+        $('.vertical-navbar').css({ height: '150vh' })
     } else {
-      $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
-      $('.dashboard-right-container div').html(`
-        <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
-      `)
-      $('.vertical-navbar').css({ height: '120vh' })
-      //this.counter ++
+        $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
+        $('.dashboard-right-container div').html(`<div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>`)
+        $('.vertical-navbar').css({ height: '120vh' })
+        //this.counter ++
     }
+
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
-  }
+}
 
-  handleAcceptSubmit = (e, bill) => {
+handleAcceptSubmit = (e, bill) => {
     const newBill = {
-      ...bill,
-      status: 'accepted',
-      commentAdmin: $('#commentary2').val()
+        ...bill,
+        status: 'accepted',
+        commentAdmin: $('#commentary2').val()
     }
     this.updateBill(newBill)
     this.onNavigate(ROUTES_PATH['Dashboard'])
-  }
+}
 
-  handleRefuseSubmit = (e, bill) => {
+handleRefuseSubmit = (e, bill) => {
     const newBill = {
-      ...bill,
-      status: 'refused',
-      commentAdmin: $('#commentary2').val()
+        ...bill,
+        status: 'refused',
+        commentAdmin: $('#commentary2').val()
     }
     this.updateBill(newBill)
     this.onNavigate(ROUTES_PATH['Dashboard'])
-  }
+}
 
-  handleShowTickets(e, bills, index) {
-    if (this.counter === undefined || this.index !== index) this.counter = 0
-    if (this.index === undefined || this.index !== index) this.index = index
+handleShowTickets(e, bills, index) {
+    //MODIF Bills dashboard bug
+    if (this.counter === undefined) this.counter = 0
+    $(`#status-bills-container${index}`).find('.bill-card').length == 0 ? this.counter = 0 : this.counter = 1
+
+    console.log(this.counter % 2 == 0 ? 'SHOW' : 'HIDE', 'Counter show', this.counter, 'Index show', this.index)
+
     if (this.counter % 2 === 0) {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html(cards(filteredBills(bills, getStatus(this.index))))
-      this.counter ++
+        $(`#arrow-icon${index}`).css({ transform: 'rotate(0deg)' })
+        $(`#status-bills-container${index}`).html(cards(filteredBills(bills, getStatus(index))))
     } else {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html("")
-      this.counter ++
+        $(`#arrow-icon${index}`).css({ transform: 'rotate(90deg)' })
+        $(`#status-bills-container${index}`).html("")
     }
 
+    // this.counter++
     bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+        $(`#open-bill${bill.id}`).off('click')
+        $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 
     return bills
 
-  }
+}
 
   getBillsAllUsers = () => {
     if (this.store) {
@@ -186,7 +184,7 @@ export default class {
   }
 
   // not need to cover this function by tests
-  /* istanbul ignore next */
+  
   updateBill = (bill) => {
     if (this.store) {
     return this.store
