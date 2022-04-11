@@ -117,3 +117,8 @@
   cursor: pointer;
 }
 
+/* MODIF for img in bill dashboard */
+img {
+  width: 100%;
+  object-fit: cover;
+}
