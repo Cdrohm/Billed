@@ -22,16 +22,25 @@ export default class NewBill {
     //MODIF img format accepted
     const input = this.document.querySelector(`input[data-testid="file"]`)
     const file = input.files[0]
+    //
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
     formData.append('email', email)
+
     //Img formats supported
+    /**if format isn't jpeg/jpg/png
+     * return alert message
+     */
     const imgFormats = ['image/jpeg', 'image/jpg', 'image/png']
-
-
+    if (!imgFormats.includes(file.type)) {
+      alert('Seulement les images en jpeg, jpg ou png sont autorisées')
+      input.value = ''
+      return
+    }
+    //
 
     this.store
       .bills()
