@@ -142,7 +142,7 @@ handleShowTickets(e, bills, index) {
     if (this.counter === undefined) this.counter = 0
     $(`#status-bills-container${index}`).find('.bill-card').length == 0 ? this.counter = 0 : this.counter = 1
 
-    console.log(this.counter % 2 == 0 ? 'SHOW' : 'HIDE', 'Counter show', this.counter, 'Index show', this.index)
+    //console.log(this.counter % 2 == 0 ? 'SHOW' : 'HIDE', 'Counter show', this.counter, 'Index show', this.index)
 
     if (this.counter % 2 === 0) {
         $(`#arrow-icon${index}`).css({ transform: 'rotate(0deg)' })

@@ -9,7 +9,7 @@ export default class {
     this.store = store
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
 
-    //syntaxe miss {}
+    //MODIF syntaxe miss {}
     if (buttonNewBill) {
        buttonNewBill.addEventListener('click', this.handleClickNewBill)
     }   
@@ -30,7 +30,7 @@ export default class {
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
 
     //incorpor data-testid
-    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
+    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container" data-testid="modalBody"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
     $('#modaleFile').modal('show')
   }
 
@@ -66,7 +66,7 @@ export default class {
             }
           })
           //.filter(bills => bills.email === userEmail)
-          console.log('length', bills.length)
+          //console.log('length', bills.length)
         return bills
       })
     }
