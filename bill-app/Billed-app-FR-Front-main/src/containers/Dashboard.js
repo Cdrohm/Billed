@@ -89,23 +89,32 @@ export default class {
 
     //MODIF bills bug
     if (this.counterBill === undefined) this.counter = 0
-    if (this.id === undefined || this.id !== bill.id) this.id = bill.id
-    if (this.counter % 2 === 0) {
+    if ($('dashboard-right-container-div').has('#big-billed-icon').length == 0) {
+      this.bill.id !=e.delegateTarget.id.replace ('open-bill', '') ?
+      this.counterBill = 0 : this.counterBill = 1
+
+    } else {
+      this.counterBill = 0
+    }
+
+    //keep bill
+    this.bill = bill
+
+    if (this.counterBill % 2 === 0) {
       bills.forEach(b => {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
       $('.vertical-navbar').css({ height: '150vh' })
-      this.counter ++
+      //this.counter ++
     } else {
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
-
       $('.dashboard-right-container div').html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `)
       $('.vertical-navbar').css({ height: '120vh' })
-      this.counter ++
+      //this.counter ++
     }
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
