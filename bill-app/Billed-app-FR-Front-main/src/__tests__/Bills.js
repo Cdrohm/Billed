@@ -120,3 +120,17 @@ describe('Unit tests from Bills', () => {
 })
 
 // error 404 and 500
+describe('When API makes error', () => {
+  beforeEach(() =>{
+    jest.spyOn(mockedStore, "bills")
+    Object.defineProperty(
+      window, 'localStorageMock', {value: localStorageMock}
+    )
+    window.localStorage.setItem('user', JSON.stringify ({
+      type: 'Employee',
+      email: "a@a"
+    }))
+    document.body.innerHTML = ''
+    
+  })
+})
