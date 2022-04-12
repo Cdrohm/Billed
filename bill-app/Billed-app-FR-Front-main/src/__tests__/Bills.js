@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+
 //@jest-environment => DOM simulation
 import {screen, waitFor} from "@testing-library/dom"
 
@@ -17,10 +18,11 @@ import {toHaveClass} from "@testing-library/jest-dom"
 import userEvent from "@testing-library/user-event"
 
 //import MOCK
-
 import {localStorageMock} from "../__mocks__/localStorage.js";
 import mockedStore from "../__mocks__/store"
 
+//import format
+import {formatDate, formatStatus} from "../app/format.js";
 
 import router from "../app/Router.js";
 import Bills from "../containers/Bills.js";
@@ -77,7 +79,7 @@ describe('Unit tests from Bills', () => {
         const billsContainer = new Bills({document, onNavigate, localStorage: window.localStorage})
         const handleClickIconEyeMethod = jest.fn(billsContainer.handleClickIconEye)
         const eyeIcons = screen.getAllByTestId('icon-eye')
-
+        global.window= {}
         $.fn.modal = jest.fn
           for (let eyeIcon of eyeIcons) {
             handleClickIconEyeMethod(eyeIcon)
@@ -94,7 +96,7 @@ describe('Unit tests from Bills', () => {
     it('buttonNewBill should open newBill on click', () =>{
       const billsContainer = new Bills({document, onNavigate, localStorage: window.localStorage})
       const handleClickNewBillMethod = jest.fn(billsContainer.handleClickNewBill)
-      const buttonNewBill = screen.getAllByTestId('btn-new-bill')
+      const buttonNewBill = screen.getByTestId('btn-new-bill')
 
       handleClickNewBillMethod(buttonNewBill)
       userEvent.click(buttonNewBill)
@@ -106,13 +108,15 @@ describe('Unit tests from Bills', () => {
     
     it('should change icon window + icon mail className -> navigate to NewBill', () => {
       window.onNavigate(ROUTES_PATH.NewBill)
-      const iconWindow = screen.getAllByTestId('icon-window')
-      const iconMail = screen.getAllByTestId('icon-mail')
+      const windowIcon = screen.getByTestId('icon-window')
+      const mailIcon = screen.getByTestId('icon-mail')
 
       //expect
-      expect(iconWindow).not.toHaveClass('active-icon')
-      expect(iconMail).toHaveClass('active-icon')
+      //tohaveclass =/ array window off/mail on
+      expect(windowIcon).not.toHaveClass('active-icon')
+      expect(mailIcon).toHaveClass('active-icon')
     })
   })
 })
 
+// error 404 and 500
