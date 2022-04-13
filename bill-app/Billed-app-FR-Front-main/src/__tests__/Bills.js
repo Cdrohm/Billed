@@ -141,25 +141,25 @@ describe('When API makes error', () => {
     mockedStore.bills.mockImplementationOnce(() =>{
       return {
         list: () => {
-          return Promise.reject(new error("Error 404"))
+          return Promise.reject(new error("Erreur 404"))
         }
       }
     })
     document.body.innerHTML = BillsUI({error: 'Erreur 404'})
-    const errorMess = screen.getByTestId('Erreur 404')
-    expect(errorMess).toBeTruthy()
+    const message = screen.getByTestId(/Erreur 404/)
+    expect(message).toBeTruthy()
   })
 
   it('fetches messages fr API and error 500', async () => {
   mockedStore.bills.mockImplementationOnce(() => {
     return {
       list : () => {
-        return Promise.reject(new Error("Error 500"))
+        return Promise.reject(new Error("Erreur 500"))
       }
     }
   })
-  document.body.innerHTML = BillsUI({error: 'Error 500'})
-  const messages = screen.getByText('Error 500')
-  expect(messages).toBeTruthy()
+  document.body.innerHTML = BillsUI({error: 'Erreur 500'})
+  const message = screen.getByText(/Erreur 500/)
+  expect(message).toBeTruthy()
   })
 })
