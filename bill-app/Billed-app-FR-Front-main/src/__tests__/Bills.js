@@ -146,7 +146,7 @@ describe('When API makes error', () => {
       }
     })
     document.body.innerHTML = BillsUI({error: 'Erreur 404'})
-    const message = screen.getByTestId(/Erreur 404/)
+    const message = screen.getByText(/Erreur 404/)
     expect(message).toBeTruthy()
   })
 
