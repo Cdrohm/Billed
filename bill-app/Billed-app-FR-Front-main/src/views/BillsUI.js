@@ -52,7 +52,7 @@ export default ({ data: bills, loading, error }) => {
   if (loading) {
     return LoadingPage()
   } else if (error) {
-    console.log('error here');
+    //console.log('error here');
     return ErrorPage(error)
   }
   
