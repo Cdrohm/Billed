@@ -163,3 +163,5 @@ describe('When API makes error', () => {
   expect(message).toBeTruthy()
   })
 })
+
+//Store / => console.log error async/promise bills
