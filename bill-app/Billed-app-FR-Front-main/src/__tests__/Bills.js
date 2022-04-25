@@ -140,7 +140,22 @@ describe('Get tests integr', () => {
 
 
 
- // it('')
+  //if corrupted
+  it('if corrupted store, should console.log? + return {date: "Hey", status: undefined', async () => { //keep console log error + mess undefined user
+  const storeCorrupt = {
+    bills()
+    return {
+      list()
+        return Promise.resolve ([{ //stack overflow Promise => value/promise/next 
+          id:'',
+          date:'Hey',
+          status:'',
+
+        }])
+    },
+  }  
+  
+  })
 
 
   //describe('')
