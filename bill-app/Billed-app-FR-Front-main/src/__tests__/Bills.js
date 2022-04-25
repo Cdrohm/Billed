@@ -119,49 +119,74 @@ describe('Unit tests from Bills', () => {
   })
 })
 
-// error 404 and 500
-describe('When API makes error', () => {
-  beforeEach(() =>{
-    jest.spyOn(mockedStore, "bills")
-    Object.defineProperty(
-      window, 'localStorageMock', {value: localStorageMock}
-    )
-    window.localStorage.setItem('user', JSON.stringify ({
-      type: 'Employee',
-      email: "a@a"
-    }))
-    document.body.innerHTML = ''
-    const root = document.createElement("div")
-    root.setAttribute("id", "root")
-    document.body.appendChild(root)
-    router()
+//Store / => console.log error async/promise bills
+describe('Get tests integr', () => {
+
+
+  it('if store, shoudl display bills with good date + format', async () => { //async
+    const billsContainer = new Bills ({document, onNavigate, store:mockedStore, localStorage:window.localStorage})
+    const spyList = jest.spyOn(billsContainer, 'getBills')
+    const data = await billsContainer.getBills() //await
+    const mockedBills = await mockedBills.bills().list()
+    const mockedDate = mockedBills[0].dates
+    const mockedStatus = mockedBills[0].status
+
+    expect (spyList).toHaveBeenCalledTimes(1)
+    expect (data[0].date)
+    expect (data[0].status)
   })
 
-  it('fetches bills fr API and message error 404', () =>{
-    mockedStore.bills.mockImplementationOnce(() =>{
+
+
+  it('')
+
+
+  describe('')
+
+
+// error 404 and 500
+  describe('When API makes error', () => {
+    beforeEach(() =>{
+      jest.spyOn(mockedStore, "bills")
+      Object.defineProperty(
+        window, 'localStorageMock', {value: localStorageMock}
+      )
+      window.localStorage.setItem('user', JSON.stringify ({
+        type: 'Employee',
+        email: "a@a"
+      }))
+      document.body.innerHTML = ''
+      const root = document.createElement("div")
+      root.setAttribute("id", "root")
+      document.body.appendChild(root)
+      router()
+    })
+
+    it('fetches bills fr API and message error 404', () =>{
+      mockedStore.bills.mockImplementationOnce(() =>{
+        return {
+          list: () => {
+            return Promise.reject(new error("Erreur 404"))
+          }
+        }
+      })
+      document.body.innerHTML = BillsUI({error: 'Erreur 404'})
+      const message = screen.getByText(/Erreur 404/)
+      expect(message).toBeTruthy()
+    })
+
+    it('fetches messages fr API and error 500', async () => {
+    mockedStore.bills.mockImplementationOnce(() => {
       return {
-        list: () => {
-          return Promise.reject(new error("Erreur 404"))
+        list : () => {
+          return Promise.reject(new Error("Erreur 500"))
         }
       }
     })
-    document.body.innerHTML = BillsUI({error: 'Erreur 404'})
-    const message = screen.getByText(/Erreur 404/)
+    document.body.innerHTML = BillsUI({error: 'Erreur 500'})
+    const message = screen.getByText(/Erreur 500/)
     expect(message).toBeTruthy()
-  })
-
-  it('fetches messages fr API and error 500', async () => {
-  mockedStore.bills.mockImplementationOnce(() => {
-    return {
-      list : () => {
-        return Promise.reject(new Error("Erreur 500"))
-      }
-    }
-  })
-  document.body.innerHTML = BillsUI({error: 'Erreur 500'})
-  const message = screen.getByText(/Erreur 500/)
-  expect(message).toBeTruthy()
+    })
   })
 })
 
-//Store / => console.log error async/promise bills
