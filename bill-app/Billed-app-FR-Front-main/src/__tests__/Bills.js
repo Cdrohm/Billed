@@ -138,10 +138,10 @@ describe('Get tests integr', () => {
 
 
 
-  it('')
+ // it('')
 
 
-  describe('')
+  //describe('')
 
 
 // error 404 and 500
