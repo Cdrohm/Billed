@@ -46,7 +46,6 @@ describe("Given I am connected as an employee", () => {
       window.onNavigate(ROUTES_PATH.Bills)
       await waitFor(() => screen.getByTestId('icon-window'))
       const windowIcon = screen.getByTestId('icon-window')
-      //to-do write expect expression
       //expect use to execute F and stock the return value
       expect(windowIcon).toHaveClass('active-icon')
     })
@@ -141,20 +140,23 @@ describe('Get tests integr', () => {
 
 
   //if corrupted
-  it('if corrupted store, should console.log? + return {date: "Hey", status: undefined', async () => { //keep console log error + mess undefined user
-  const storeCorrupt = {
-    bills()
-    return {
-      list()
-        return Promise.resolve ([{ //stack overflow Promise => value/promise/next 
-          id:'',
-          date:'Hey',
-          status:'',
+  it('if corrupted store, should console.log? + return {date: "Hey", status: undefined}', async () => { //keep console log error + mess undefined user
+  const storeCorrupt = { 
+    bills(){
+      return {
+        list() {
+          return Promise.resolve ([{ //stack overflow Promise => value/promise/next 
+            id:'CeKy5Mo4jkmdfPGYpTxZ',
+            vat: '28',
+            date:'Hey',
+            status:'test',
 
-        }])
-    },
-  }  
-  
+          }])
+        },
+      }
+    }  
+  }
+
   })
 
 
@@ -187,7 +189,7 @@ describe('Get tests integr', () => {
           }
         }
       })
-      document.body.innerHTML = BillsUI({error: 'Erreur 404'})
+      document.body.innerHTML = BillsUI({error: 'Erreur 404'}) //keep 404
       const message = screen.getByText(/Erreur 404/) // /'/ for take
       expect(message).toBeTruthy()
     })
@@ -200,7 +202,7 @@ describe('Get tests integr', () => {
         }
       }
     })
-    document.body.innerHTML = BillsUI({error: 'Erreur 500'})
+    document.body.innerHTML = BillsUI({error: 'Erreur 500'}) //keep 500
     const message = screen.getByText(/Erreur 500/) // /'/ for take
     expect(message).toBeTruthy()
     })
