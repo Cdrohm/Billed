@@ -53,7 +53,7 @@ describe("Given I am connected as an employee", () => {
 
     test("Then bills should be ordered from earliest to latest", () => {
       document.body.innerHTML = BillsUI({ data: bills })
-      const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML)
+      const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML) //regex date
       const antiChrono = (a, b) => ((a < b) ? 1 : -1)
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
@@ -67,18 +67,18 @@ describe('Unit tests from Bills', () => {
     describe ('eyeIcon button', () => {
       it ('first eyebtn should render first mockedBills img', () =>{
         document.body.innerHTML = BillsUI ({data: bills})
-        const eyeIcon = screen.getAllByTestId('icon-eye') [0]
+        const eyeIcon = screen.getAllByTestId('icon-eye') [0] //keep Ic eye on array Ic
         //keep url
         const fileUrl = "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a"
 
         //expect
-        expect(eyeIcon.dataset.billUrl).toEqual(fileUrl)
+        expect(eyeIcon.dataset.billUrl).toEqual(fileUrl) //take url 
       })
 
       it('all eyeBtns should open modal on click', () =>{
         const billsContainer = new Bills({document, onNavigate, localStorage: window.localStorage})
         const handleClickIconEyeMethod = jest.fn(billsContainer.handleClickIconEye)
-        const eyeIcons = screen.getAllByTestId('icon-eye')
+        const eyeIcons = screen.getAllByTestId('icon-eye') //Ic eye
         global.window= {}
         $.fn.modal = jest.fn
           for (let eyeIcon of eyeIcons) {
@@ -94,27 +94,27 @@ describe('Unit tests from Bills', () => {
   //new bill btn + icon win/mail
   describe('Testing newBill button', () => {
     it('buttonNewBill should open newBill on click', () =>{
-      const billsContainer = new Bills({document, onNavigate, localStorage: window.localStorage})
-      const handleClickNewBillMethod = jest.fn(billsContainer.handleClickNewBill)
-      const buttonNewBill = screen.getByTestId('btn-new-bill')
+      const billsContainer = new Bills({document, onNavigate, localStorage: window.localStorage}) //simu new bills
+      const handleClickNewBillMethod = jest.fn(billsContainer.handleClickNewBill) //simu click
+      const buttonNewBill = screen.getByTestId('btn-new-bill') //test btn new bill
 
       handleClickNewBillMethod(buttonNewBill)
-      userEvent.click(buttonNewBill)
+      userEvent.click(buttonNewBill) //simu user click btn
 
       //expect
       expect(handleClickNewBillMethod).toHaveBeenCalled()
-      expect(screen.getAllByText('Envoyer une note de frais')).toBeTruthy()
+      expect(screen.getAllByText('Envoyer une note de frais')).toBeTruthy() 
     })
     
     it('should change icon window + icon mail className -> navigate to NewBill', () => {
       window.onNavigate(ROUTES_PATH.NewBill)
-      const windowIcon = screen.getByTestId('icon-window')
-      const mailIcon = screen.getByTestId('icon-mail')
+      const windowIcon = screen.getByTestId('icon-window') //Ic window 
+      const mailIcon = screen.getByTestId('icon-mail') //Ic mail
 
       //expect
       //tohaveclass =/ array window off/mail on
-      expect(windowIcon).not.toHaveClass('active-icon')
-      expect(mailIcon).toHaveClass('active-icon')
+      expect(windowIcon).not.toHaveClass('active-icon') //Ic window off
+      expect(mailIcon).toHaveClass('active-icon') //Ic mail on
     })
   })
 })
@@ -125,15 +125,17 @@ describe('Get tests integr', () => {
 
   it('if store, shoudl display bills with good date + format', async () => { //async
     const billsContainer = new Bills ({document, onNavigate, store:mockedStore, localStorage:window.localStorage})
-    const spyList = jest.spyOn(billsContainer, 'getBills')
-    const data = await billsContainer.getBills() //await
-    const mockedBills = await mockedBills.bills().list()
-    const mockedDate = mockedBills[0].dates
-    const mockedStatus = mockedBills[0].status
+    const spyList = jest.spyOn(billsContainer, 'getBills') //jest search in all bills mocked
+    const data = await billsContainer.getBills() //await bills
+    const mockedBills = await mockedBills.bills().list() //await mock
+    
+    const mockedDate = mockedBills[0].dates // search date on mock
+    const mockedStatus = mockedBills[0].status //search statut on mock
 
+    //expects
     expect (spyList).toHaveBeenCalledTimes(1)
-    expect (data[0].date).toEqual
-    expect (data[0].status).toEqual
+    expect (data[0].date).toEqual(formatDate(mockedDate))
+    expect (data[0].status).toEqual(formatStatus(mockedStatus))
   })
 
 
@@ -171,7 +173,7 @@ describe('Get tests integr', () => {
         }
       })
       document.body.innerHTML = BillsUI({error: 'Erreur 404'})
-      const message = screen.getByText(/Erreur 404/)
+      const message = screen.getByText(/Erreur 404/) // /'/ for take
       expect(message).toBeTruthy()
     })
 
@@ -184,7 +186,7 @@ describe('Get tests integr', () => {
       }
     })
     document.body.innerHTML = BillsUI({error: 'Erreur 500'})
-    const message = screen.getByText(/Erreur 500/)
+    const message = screen.getByText(/Erreur 500/) // /'/ for take
     expect(message).toBeTruthy()
     })
   })
