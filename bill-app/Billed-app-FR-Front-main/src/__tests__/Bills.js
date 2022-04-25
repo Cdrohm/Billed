@@ -132,8 +132,8 @@ describe('Get tests integr', () => {
     const mockedStatus = mockedBills[0].status
 
     expect (spyList).toHaveBeenCalledTimes(1)
-    expect (data[0].date)
-    expect (data[0].status)
+    expect (data[0].date).toEqual
+    expect (data[0].status).toEqual
   })
 
 
