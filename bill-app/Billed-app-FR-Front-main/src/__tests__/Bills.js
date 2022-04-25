@@ -147,7 +147,7 @@ describe('Get tests integr', () => {
         list() {
           return Promise.resolve ([{ //stack overflow Promise => value/promise/next 
             id:'CeKy5Mo4jkmdfPGYpTxZ',
-            vat: '28',
+            vat: '30',
             date:'Hey',
             status:'test',
 
@@ -157,7 +157,16 @@ describe('Get tests integr', () => {
     }  
   }
 
-  })
+  const billsContainer = new Bills ({document, onNavigate, store:storeCorrupt, localStorage:window.localStorage}) //change storage target
+  const spyConsole = jest.spyOn(console, 'log')
+  const data = await billsContainer.getBills() //await
+
+  //expects
+  expect(spyConsole).toHaveBeenCalled()
+  expect(data[0].date).toEqual('Hey')
+  expect(data[0].status).toEqual(undefined)
+
+})
 
 
   //describe('')
