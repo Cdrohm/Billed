@@ -126,9 +126,9 @@ describe('Get tests integr', () => {
     const billsContainer = new Bills ({document, onNavigate, store:mockedStore, localStorage:window.localStorage})
     const spyList = jest.spyOn(billsContainer, 'getBills') //jest search in all bills mocked
     const data = await billsContainer.getBills() //await bills
-    const mockedBills = await mockedBills.bills().list() //await mock
+    const mockedBills = await mockedStore.bills().list() //await mock bug?
     
-    const mockedDate = mockedBills[0].dates // search date on mock
+    const mockedDate = mockedBills[0].date // search date on mock
     const mockedStatus = mockedBills[0].status //search statut on mock
 
     //expects
@@ -140,7 +140,7 @@ describe('Get tests integr', () => {
 
 
   //if corrupted
-  it('if corrupted store, should console.log? + return {date: "Hey", status: undefined}', async () => { //keep console log error + mess undefined user
+  it('if corrupted store, should console.log + return {date: "test1", status: undefined}', async () => { //keep console log error + mess undefined user
   const storeCorrupt = { 
     bills(){
       return {
@@ -148,8 +148,8 @@ describe('Get tests integr', () => {
           return Promise.resolve ([{ //stack overflow Promise => value/promise/next 
             id:'CeKy5Mo4jkmdfPGYpTxZ',
             vat: '30',
-            date:'Hey',
-            status:'test',
+            date:'test1',
+            status:'unknow',
 
           }])
         },
@@ -163,7 +163,7 @@ describe('Get tests integr', () => {
 
   //expects
   expect(spyConsole).toHaveBeenCalled()
-  expect(data[0].date).toEqual('Hey')
+  expect(data[0].date).toEqual('test1')
   expect(data[0].status).toEqual(undefined)
 
 })
