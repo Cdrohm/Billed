@@ -52,7 +52,7 @@ export default ({ data: bills, loading, error }) => {
   if (loading) {
     return LoadingPage()
   } else if (error) {
-    //console.log('error here'); //for jest test intergration corrupted
+    console.log('error here'); //for jest test intergration corrupted
     return ErrorPage(error)
   }
   

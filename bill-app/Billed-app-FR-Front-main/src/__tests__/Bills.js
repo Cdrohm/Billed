@@ -140,7 +140,7 @@ describe('Get tests integr', () => {
 
 
   //if corrupted
-  it('if corrupted store, should console.log + return {date: "test1", status: undefined}', async () => { //keep console log error + mess undefined user
+  it('if corrupted store, should console.log + return {date: "2022-04-22", status: undefined}', async () => { //keep console log error + mess undefined user
   const storeCorrupt = { 
     bills(){
       return {
@@ -148,7 +148,7 @@ describe('Get tests integr', () => {
           return Promise.resolve ([{ //stack overflow Promise => value/promise/next 
             id:'CeKy5Mo4jkmdfPGYpTxZ',
             vat: '30',
-            date:'test1',
+            date:'2022-04-22',
             status:'unknow',
 
           }])
@@ -158,12 +158,14 @@ describe('Get tests integr', () => {
   }
 
   const billsContainer = new Bills ({document, onNavigate, store:storeCorrupt, localStorage:window.localStorage}) //change storage target
-  const spyConsole = jest.spyOn(console, 'log')
   const data = await billsContainer.getBills() //await
+  const spyConsole = jest.spyOn(console, 'log')
+  //console.forceUpdate();
+ 
 
   //expects
   expect(spyConsole).toHaveBeenCalled()
-  expect(data[0].date).toEqual('test1')
+  expect(data[0].date).toEqual('2022-04-22')
   expect(data[0].status).toEqual(undefined)
 
 })
