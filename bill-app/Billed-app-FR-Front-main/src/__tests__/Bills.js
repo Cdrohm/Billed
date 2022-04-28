@@ -124,11 +124,11 @@ describe('Get tests integr', () => {
   it('if store, shoudl display bills with good date + format', async () => { //async
     const billsContainer = new Bills ({document, onNavigate, store:mockedStore, localStorage:window.localStorage})
     const spyList = jest.spyOn(billsContainer, 'getBills') //jest search in all bills mocked
-    const data = await billsContainer.getBills() //await bills
-    const mockedBills = await mockedStore.bills().list() //await mock
+    const data = await billsContainer.getBills() //await bills /!\
+    const mockedBills = await mockedStore.bills().list() //await mock bills /!\
     
     const mockedDate = mockedBills[0].date // search date on mock
-    const mockedStatus = mockedBills[0].status //search statut on mock
+    const mockedStatus = mockedBills[0].status //search statut on mock 
 
     //expects
     expect (spyList).toHaveBeenCalledTimes(1)
@@ -137,9 +137,8 @@ describe('Get tests integr', () => {
   })
 
 
-
   //if corrupted
- /* it('if corrupted store, should console.log + return {date: "test1", status: undefined}', async () => { //keep console log error + mess undefined user
+  it('if corrupted store, should console.log + return {date: "test1", status: undefined}', async () => { //keep console log error + mess undefined user
   const storeCorrupt = { 
     bills(){
       return {
@@ -161,15 +160,15 @@ describe('Get tests integr', () => {
   const spyConsole = jest.spyOn(console, 'log')
 
   //console.forceUpdate();
-  const data = await billsContainer.getBills() //await
+  const data = await billsContainer.getBills() //await /!\
  
 
   //expects
-  expect(spyConsole).toHaveBeenCalled()
+  expect(spyConsole).toHaveBeenCalledTimes()
   expect(data[0].date).toEqual('test1')
   expect(data[0].status).toEqual(undefined)
 
-}) */
+}) 
 
 // tests error 404 and 500
   describe('When API makes error', () => {

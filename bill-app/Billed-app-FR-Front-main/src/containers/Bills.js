@@ -44,7 +44,7 @@ export default class {
       .list()
       .then(snapshot => {
         const bills = snapshot
-        //MODIF
+        //MODIF sort bills by date
         .sort((a,b) => new Date(a.date) > new Date(b.date) ? -1 : new Date(a.date) < new Date(b.date) ? 1 : 0)
         //
           .map(doc => {
@@ -57,7 +57,7 @@ export default class {
             } catch(e) {
               // if for some reason, corrupted data was introduced, we manage here failing formatDate function
               // log the error and return unformatted date in that case
-              //console.log(e,'for',doc)
+              console.log(e,'for',doc) //console log => jest integr get bills
               return {
                 ...doc,
                 date: doc.date,
