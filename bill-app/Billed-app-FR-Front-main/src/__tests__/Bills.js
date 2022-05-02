@@ -185,7 +185,7 @@ describe('Get tests integr', () => {
                           //ex
                           id: 'CeKy5Mo4jkmdfPGYpTxZ',
                           vat: '30',
-                          date: 'test1',
+                          date: '2022-02-20',
                           status: 'unknow',
 
                       }])
@@ -207,7 +207,7 @@ describe('Get tests integr', () => {
 
 
       //expects
-      expect(spyConsole).toHaveBeenCalledTimes()
+      expect(spyConsole).toHaveBeenCalled(0)
       expect(data[0].date).toEqual('test1')
       expect(data[0].status).toEqual(undefined)
 
