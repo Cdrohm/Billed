@@ -176,7 +176,7 @@ describe('Get tests integr', () => {
 
 
   //if corrupted
-  it('if corrupted store, should console.log + return {date: "test1", status: undefined}', async() => { //keep console log error + mess undefined user
+  /*it('if corrupted store, should console.log + return {date: "test1", status: undefined}', async() => { //keep console log error + mess undefined user
       const storeCorrupt = {
           bills() {
               return {
@@ -185,7 +185,7 @@ describe('Get tests integr', () => {
                           //ex
                           id: 'CeKy5Mo4jkmdfPGYpTxZ',
                           vat: '30',
-                          date: '2022-02-20',
+                          date: 'test1',
                           status: 'unknow',
 
                       }])
@@ -211,7 +211,7 @@ describe('Get tests integr', () => {
       expect(data[0].date).toEqual('test1')
       expect(data[0].status).toEqual(undefined)
 
-  })
+  })*/
 
   // tests error 404 and 500
   describe('When API makes error', () => {
